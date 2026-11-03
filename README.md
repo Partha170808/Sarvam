@@ -1,6 +1,8 @@
 # SarvamPulse 🛰️
 ### Omnichannel Multilingual News & Media Intelligence Platform
 
+[**🌐 Open Live Website Demo**](https://partha170808.github.io/Sarvam/) • [**📖 Documentation**](https://docs.sarvam.ai/api/getting-started/welcome)
+
 SarvamPulse is an omnichannel media intelligence engine powered by sovereign Indic AI models from [Sarvam AI](https://sarvam.ai). It ingests, analyzes, and cross-references news across four distinct channels in real time:
 
 1. **Social Media (X, Reddit, Threads, Telegram):** Slang, Hinglish/vernacular extraction, sentiment clustering, and viral rumor tracking.
