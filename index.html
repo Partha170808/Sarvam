@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sarvam Pulse — Omnichannel Multilingual News & Media Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-dark">
+  <!-- Ambient Glow Effects -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- Top App Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">Sarvam<span>Pulse</span></div>
+          <div class="brand-subtitle">Omnichannel News & Intelligence Engine</div>
+        </div>
+        <span class="badge live-badge"><span class="pulse-dot"></span> LIVE INGESTION</span>
+      </div>
+
+      <!-- Global Search & Filters -->
+      <div class="header-search">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="globalSearchInput" placeholder="Search across tweets, TV broadcasts, magazines, reports...">
+        <kbd class="search-kbd">⌘K</kbd>
+      </div>
+
+      <!-- Controls & Actions -->
+      <div class="header-actions">
+        <!-- Indic Language Selector -->
+        <div class="lang-selector">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="action-icon">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <select id="langSelect">
+            <option value="en">English (Global)</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="ta">தமிழ் (Tamil)</option>
+            <option value="te">తెలుగు (Telugu)</option>
+            <option value="bn">বাংলা (Bengali)</option>
+            <option value="mr">मराठी (Marathi)</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary" id="openAnalyzeModalBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <span>Ask Sarvam AI</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Live Breaking News Ticker -->
+    <div class="breaking-ticker">
+      <div class="ticker-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        CROSS-MEDIA RADAR
+      </div>
+      <div class="ticker-track">
+        <div class="ticker-content" id="tickerTrack">
+          <!-- Dynamically populated via JS -->
+          <span class="ticker-item"><span class="source-tag st-tv">TV NEWS</span> Doordarshan & NDTV report GDP projection upgrade to 7.4%</span>
+          <span class="ticker-item"><span class="source-tag st-social">SOCIAL MEDIA</span> Hinglish sentiment turns bullish on RBI monetary policy (#RepoRate)</span>
+          <span class="ticker-item"><span class="source-tag st-reports">REPORTS</span> NITI Aayog releases green hydrogen infrastructure roadmap 2026</span>
+          <span class="ticker-item"><span class="source-tag st-mag">MAGAZINES</span> Economic & Political Weekly examines agrarian digital shifts</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Body -->
+  <main class="app-main">
+    <div class="content-container">
+
+      <!-- Executive Metric Horizon -->
+      <section class="stats-overview">
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">Omnichannel Streams</span>
+            <div class="stat-icon icon-blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+            </div>
+          </div>
+          <div class="stat-value" id="statTotalItems">184,920</div>
+          <div class="stat-meta text-success">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+            <span>+14.8% vs yesterday</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">Indic Sentiment Index</span>
+            <div class="stat-icon icon-emerald">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+            </div>
+          </div>
+          <div class="stat-value text-emerald">+68.4 <span class="stat-unit">Net Positive</span></div>
+          <div class="stat-meta">
+            <span>Social: +52% | Press: +81%</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">Factual Consistency</span>
+            <div class="stat-icon icon-amber">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+          </div>
+          <div class="stat-value text-amber">94.2% <span class="stat-unit">Verified</span></div>
+          <div class="stat-meta text-danger">
+            <span>5.8% flagged divergence / rumors</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">Active Sarvam Models</span>
+            <div class="stat-icon icon-purple">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </div>
+          </div>
+          <div class="stat-value text-purple">4 APIs <span class="stat-unit">Integrated</span></div>
+          <div class="stat-meta">
+            <span>sarvam-105b, Saaras, Bulbul, DocAI</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Topic Pills Filter -->
+      <section class="topic-nav">
+        <span class="topic-label">TRENDING TOPICS:</span>
+        <div class="topic-scroll" id="topicFilterContainer">
+          <button class="topic-pill active" data-topic="all">All Topics</button>
+          <button class="topic-pill" data-topic="Economy & Markets">#Economy & Markets</button>
+          <button class="topic-pill" data-topic="Artificial Intelligence">#AI & DeepTech</button>
+          <button class="topic-pill" data-topic="National Policy">#National Policy</button>
+          <button class="topic-pill" data-topic="Clean Energy">#Clean Energy & Climate</button>
+          <button class="topic-pill" data-topic="Infrastructure">#Infrastructure</button>
+        </div>
+      </section>
+
+      <!-- Source Channel Category Tabs -->
+      <section class="source-tabs-section">
+        <div class="tabs-header">
+          <div class="source-tabs" id="sourceTabs">
+            <button class="tab-btn active" data-source="all">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              <span>All Media (360° View)</span>
+              <span class="tab-badge" id="countAll">16</span>
+            </button>
+            <button class="tab-btn" data-source="social">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+              <span>Social Media</span>
+              <span class="tab-badge" id="countSocial">4</span>
+            </button>
+            <button class="tab-btn" data-source="tv">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
+              <span>TV News & Broadcasts</span>
+              <span class="tab-badge" id="countTv">4</span>
+            </button>
+            <button class="tab-btn" data-source="magazines">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+              <span>Magazines & Press</span>
+              <span class="tab-badge" id="countMag">4</span>
+            </button>
+            <button class="tab-btn" data-source="reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              <span>Official Reports & Whitepapers</span>
+              <span class="tab-badge" id="countReports">4</span>
+            </button>
+          </div>
+
+          <div class="view-controls">
+            <span class="filter-text">Sort by:</span>
+            <select id="sortBy">
+              <option value="recent">Most Recent</option>
+              <option value="virality">Highest Virality / Impact</option>
+              <option value="sentiment">Sentiment (Positive first)</option>
+              <option value="divergence">Controversy / Divergence</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- In-Depth News Intelligence Grid -->
+        <div class="news-grid" id="newsGrid">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- Sarvam AI Architecture Mapping (How each source connects to Sarvam's API) -->
+      <section class="pipeline-section">
+        <div class="section-title-wrap">
+          <h2 class="section-title">Sarvam AI Omnichannel Pipeline Architecture</h2>
+          <p class="section-subtitle">How specialized sovereign Indic models decode every medium in real time</p>
+        </div>
+
+        <div class="pipeline-grid">
+          <!-- Pipeline Card 1 -->
+          <div class="pipeline-card">
+            <div class="pipeline-badge pb-social">SOCIAL MEDIA INGESTION</div>
+            <h3 class="pipeline-name">Slang & Code-Mixed Sentiment</h3>
+            <p class="pipeline-desc">Processes high-velocity Hinglish, Tamil-English, and Bengali posts on X, Reddit, and Threads.</p>
+            <div class="pipeline-tech">
+              <span class="tech-tag">sarvam-105b</span>
+              <span class="tech-tag">Language ID</span>
+              <span class="tech-tag">Sentiment Classifier</span>
+            </div>
+            <div class="pipeline-capability">
+              <strong>Key Capability:</strong> Understands colloquial regional metaphors, sarcasm, and trending hashtag velocity.
+            </div>
+          </div>
+
+          <!-- Pipeline Card 2 -->
+          <div class="pipeline-card">
+            <div class="pipeline-badge pb-tv">TV & PODCAST BROADCASTS</div>
+            <h3 class="pipeline-name">Saaras STT & Speaker Diarization</h3>
+            <p class="pipeline-desc">Real-time live audio ingestion from 14 national and regional television channels.</p>
+            <div class="pipeline-tech">
+              <span class="tech-tag">Saaras STT</span>
+              <span class="tech-tag">Speaker Diarization</span>
+              <span class="tech-tag">Bulbul TTS Audio</span>
+            </div>
+            <div class="pipeline-capability">
+              <strong>Key Capability:</strong> Word-level timestamps, anchor vs panelist separation, and speech translation into English.
+            </div>
+          </div>
+
+          <!-- Pipeline Card 3 -->
+          <div class="pipeline-card">
+            <div class="pipeline-badge pb-mag">MAGAZINES & EDITORIALS</div>
+            <h3 class="pipeline-name">Mayura Multilingual Synthesis</h3>
+            <p class="pipeline-desc">Cross-lingual synthesis of editorial opinions across 22 Indic regional newspapers and periodicals.</p>
+            <div class="pipeline-tech">
+              <span class="tech-tag">Mayura Translate</span>
+              <span class="tech-tag">sarvam-105b-conversations</span>
+              <span class="tech-tag">Bias Analysis</span>
+            </div>
+            <div class="pipeline-capability">
+              <strong>Key Capability:</strong> Compares ideological slant and narrative framing between regional and national press.
+            </div>
+          </div>
+
+          <!-- Pipeline Card 4 -->
+          <div class="pipeline-card">
+            <div class="pipeline-badge pb-reports">OFFICIAL REPORTS & DOSSIERS</div>
+            <h3 class="pipeline-name">DocAI & Structured Extraction</h3>
+            <p class="pipeline-desc">Parsing PDF gazettes, parliamentary bills, and research papers with zero hallucination.</p>
+            <div class="pipeline-tech">
+              <span class="tech-tag">DocAI v2</span>
+              <span class="tech-tag">Table Extraction</span>
+              <span class="tech-tag">Evidence Grounding</span>
+            </div>
+            <div class="pipeline-capability">
+              <strong>Key Capability:</strong> Cross-checks viral social media claims against official government gazette figures.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Cross-Media Comparison Radar -->
+      <section class="comparison-radar-section">
+        <div class="radar-card">
+          <div class="radar-header">
+            <div>
+              <span class="badge badge-accent">CROSS-SOURCE VERIFICATION BENCH</span>
+              <h2 class="radar-title">Story Narrative Divergence Analyzer</h2>
+              <p class="radar-subtitle">Select an unfolding story to see how Social Media vs TV News vs Magazines vs Official Reports report it differently.</p>
+            </div>
+            <div class="story-picker">
+              <label for="divergenceStorySelect">Inspect Case Study:</label>
+              <select id="divergenceStorySelect">
+                <option value="repo_rate">RBI Repo Rate & Inflation Forecast (Nov 2026)</option>
+                <option value="green_hydrogen">National Green Hydrogen Mission Targets</option>
+                <option value="ai_datacenter">AI Sovereign Data Center Infrastructure Policy</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="radar-grid" id="radarDetailsGrid">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Interactive Story Detail Modal -->
+  <div class="modal-backdrop" id="storyModal">
+    <div class="modal-window">
+      <button class="modal-close" id="modalCloseBtn">&times;</button>
+      <div class="modal-body" id="modalContent">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Sarvam AI Query Modal -->
+  <div class="modal-backdrop" id="sarvamQueryModal">
+    <div class="modal-window modal-lg">
+      <button class="modal-close" id="sarvamModalCloseBtn">&times;</button>
+      <div class="modal-header">
+        <div class="brand-group">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div>
+            <h3 class="modal-title">Ask Sarvam 105B News Intelligence</h3>
+            <div class="text-muted font-sm">Powered by Sarvam AI sovereign model with Indic language reasoning</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="query-interface">
+        <div class="prompt-presets">
+          <span class="font-sm text-muted">Quick Prompts:</span>
+          <button class="preset-btn" data-query="Compare how Hindi TV news channels and English business magazines are covering the latest GDP growth figures.">Compare TV vs Press Coverage</button>
+          <button class="preset-btn" data-query="Fact-check viral social media claims regarding the Green Hydrogen subsidy with official government report data.">Fact-check Social Rumor</button>
+          <button class="preset-btn" data-query="Give me a 3-bullet summary in Hindi and English of today's key economic decisions.">Bilingual Executive Briefing</button>
+        </div>
+
+        <div class="input-area">
+          <textarea id="aiQueryPrompt" rows="3" placeholder="Enter any news topic, claim, or question to analyze across all media channels..."></textarea>
+          <div class="input-toolbar">
+            <div class="model-indicator">
+              <span class="pulse-dot"></span> Model: <strong>sarvam-105b-conversations</strong>
+            </div>
+            <button class="btn btn-primary" id="executeAiQueryBtn">
+              <span id="aiBtnSpinner" class="spinner hidden"></span>
+              <span id="aiBtnText">Run Analysis</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- AI Output Box -->
+        <div class="ai-response-box hidden" id="aiResponseContainer">
+          <div class="response-header">
+            <div class="response-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <span>Sarvam Intelligence Synthesis</span>
+            </div>
+            <span class="badge badge-accent">Grounding Score: 98%</span>
+          </div>
+          <div class="response-body" id="aiResponseText"></div>
+          <div class="response-footer">
+            <div class="response-sources" id="aiResponseSources">
+              <!-- Sources tagged here -->
+            </div>
+            <button class="btn btn-sm btn-outline" id="copyAiResponseBtn">Copy Analysis</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Player Floating Bar (for TV/Radio Broadcast Audio) -->
+  <div class="audio-bar" id="audioPlayerBar">
+    <div class="audio-inner">
+      <div class="audio-info">
+        <button class="play-btn" id="audioToggleBtn">
+          <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <svg id="pauseIcon" class="hidden" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+        </button>
+        <div class="audio-meta">
+          <span class="audio-title" id="audioTrackTitle">DD News 9 PM Broadcast (Live Saaras Transcription)</span>
+          <span class="audio-sub" id="audioTrackSub">Speaker: Prime Time Anchor • Transcribed & Diarized</span>
+        </div>
+      </div>
+      <div class="waveform-box">
+        <div class="waveform-bars" id="waveformContainer">
+          <!-- Animated bars generated via JS -->
+        </div>
+      </div>
+      <button class="audio-close" id="audioCloseBtn">&times;</button>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="brand-title font-sm">Sarvam<span>Pulse</span> Intelligence</div>
+        <p class="text-muted font-xs">Omnichannel analysis across social media, broadcast television, periodicals, and gazette reports.</p>
+      </div>
+      <div class="footer-center text-muted font-xs">
+        Powered by Sarvam AI SDK • <code>sarvam-105b-conversations</code> • <code>Saaras STT</code> • <code>Bulbul TTS</code> • <code>DocAI</code>
+      </div>
+      <div class="footer-right">
+        <a href="https://docs.sarvam.ai/api/getting-started/welcome" target="_blank" rel="noopener" class="footer-link">Sarvam AI Documentation &rarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
